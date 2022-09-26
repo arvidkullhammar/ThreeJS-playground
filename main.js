@@ -3,7 +3,7 @@ import javascriptLogo from './javascript.svg'
 
 import * as THREE from 'three'
 import { TorusGeometry } from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/orbitControls'
+/* import {OrbitControls} from 'three/examples/jsm/controls/orbitControls' */
 
 const scene = new  THREE.Scene()
 
@@ -37,7 +37,7 @@ const lightHelper = new THREE.PointLightHelper(pointLight)
 const gridHelper = new THREE.GridHelper(200,50)
 /* scene.add(lightHelper,gridHelper) */
 
-const controls = new OrbitControls(camera, renderer.domElement)
+/* const controls = new OrbitControls(camera, renderer.domElement) */
 
 function addStar() {
   const starGeometry = new THREE.SphereGeometry(0.25,24,24)
