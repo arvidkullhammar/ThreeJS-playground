@@ -77,7 +77,7 @@ function animate () {
   jspic.rotation.y += 0.005
   jspic.rotation.z += 0.01
 
-  controls.update()
+/*   controls.update() */
   renderer.render(scene,camera)
 }
 
