@@ -3,9 +3,10 @@ import javascriptLogo from './javascript.svg'
 
 import * as THREE from 'three'
 import { TorusGeometry } from 'three'
-/* import {OrbitControls} from 'three/examples/jsm/controls/orbitControls' */
+import {OrbitControls} from 'three/examples/jsm/controls/orbitControls'
 
 const scene = new  THREE.Scene()
+const clock = new THREE.Clock();
 
 const camera = new THREE.PerspectiveCamera(75,window.innerWidth / window.innerHeight, 0.1, 1000)
 
@@ -19,13 +20,27 @@ renderer.setSize(window.innerWidth,window.innerHeight)
 camera.position.setZ(30)
 
 renderer.render(scene,camera)
+const reactGroup = new THREE.Group();
 
-const torusGeometry = new THREE.TorusGeometry(6,1.5,16,100)
+const torusGeometry = new THREE.TorusGeometry(6,0.2,16,100)
 const torusMaterial = new THREE.MeshStandardMaterial( {color: 0x61dbfb})
 
-const torus = new THREE.Mesh(torusGeometry,torusMaterial)
+const torusOne = new THREE.Mesh(torusGeometry,torusMaterial)
+torusOne.rotateX(93)
 
-scene.add(torus)
+
+
+const torusTwo = new THREE.Mesh(torusGeometry,torusMaterial)
+torusTwo.rotateX(90)
+torusTwo.rotateY(18)
+
+
+const torusThree = new THREE.Mesh(torusGeometry,torusMaterial)
+torusThree.rotateX(90)
+torusThree.rotateY(-18)
+
+
+reactGroup.add(torusOne,torusTwo,torusThree)
 
 const pointLight = new THREE.PointLight(0xffffff)
 pointLight.position.set(5,5,5)
@@ -37,11 +52,11 @@ const lightHelper = new THREE.PointLightHelper(pointLight)
 const gridHelper = new THREE.GridHelper(200,50)
 /* scene.add(lightHelper,gridHelper) */
 
-/* const controls = new OrbitControls(camera, renderer.domElement) */
+const controls = new OrbitControls(camera, renderer.domElement)
 
 function addStar() {
-  const starGeometry = new THREE.SphereGeometry(0.25,24,24)
-  const starMaterial = new THREE.MeshStandardMaterial({color: 0xffffff})
+  const starGeometry = new THREE.SphereGeometry(0.2,24,24)
+  const starMaterial = new THREE.MeshStandardMaterial({color: 0xf3f3f3})
   const star = new THREE.Mesh(starGeometry,starMaterial)
 
 
@@ -51,17 +66,18 @@ function addStar() {
   scene.add(star)
 }
 
-const spaceTexture = new THREE.TextureLoader().load('images/v627-aew-41-technologybackground.jpg')
+const spaceTexture = new THREE.TextureLoader().load('public/v627-aew-41-technologybackground.jpg')
 scene.background = spaceTexture
 
-const jspicture = new THREE.TextureLoader().load('images/reactlogo.png')
+const ballGeometry = new THREE.SphereGeometry(0.8,24,24)
+  const ballMaterial = new THREE.MeshStandardMaterial({color: 0x61dbfb})
+  const ball = new THREE.Mesh(ballGeometry,ballMaterial)
+  ball.position.y += -0.25
 
-const jspic = new THREE.Mesh(
-  new THREE.BoxGeometry(3,3,3),
-  new THREE.MeshBasicMaterial({map: jspicture})
-)
+reactGroup.add(ball)
 
-scene.add(jspic)
+
+scene.add(reactGroup)
 
 
 Array(100).fill().forEach(addStar)
@@ -69,15 +85,11 @@ Array(100).fill().forEach(addStar)
 function animate () {
   requestAnimationFrame(animate)
 
-  torus.rotation.x += 0.01
-  torus.rotation.y += 0.005
-  torus.rotation.z += 0.01
+  const time = clock.getElapsedTime();
+  reactGroup.position.y = Math.cos( time ) * 2;
+reactGroup.lookAt(camera.position)
 
-  jspic.rotation.x += 0.01
-  jspic.rotation.y += 0.005
-  jspic.rotation.z += 0.01
-
-/*   controls.update() */
+  controls.update()
   renderer.render(scene,camera)
 }
 
