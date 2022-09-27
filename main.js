@@ -3,7 +3,7 @@ import './style.css'
 
 import * as THREE from 'three'
 import { TorusGeometry } from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/orbitControls'
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/controls/OrbitControls.js'
 
 const scene = new  THREE.Scene()
 const clock = new THREE.Clock();
