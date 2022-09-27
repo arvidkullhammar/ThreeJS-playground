@@ -66,7 +66,7 @@ function addStar() {
   scene.add(star)
 }
 
-const spaceTexture = new THREE.TextureLoader().load('v627-aew-41-technologybackground.jpg')
+const spaceTexture = new THREE.TextureLoader().load('codebackground.jpg')
 scene.background = spaceTexture
 
 const ballGeometry = new THREE.SphereGeometry(0.8,24,24)
