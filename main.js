@@ -1,5 +1,5 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
+
 
 import * as THREE from 'three'
 import { TorusGeometry } from 'three'
